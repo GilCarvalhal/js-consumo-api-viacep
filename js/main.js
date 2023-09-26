@@ -17,7 +17,11 @@ const pesquisarCep = async () => {
 
   const dados = await fetch(url);
   const endereco = await dados.json();
-  preencherFormulario(endereco);
+  if (endereco.hasOwnProperty("erro")) {
+    document.getElementById("endereco").value = "CEP não encontrado!";
+  } else {
+    preencherFormulario(endereco);
+  }
 };
 
 document.getElementById("cep").addEventListener("focusout", pesquisarCep);
